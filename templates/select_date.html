@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Date</title>
+</head>
+<body>
+    <h1>Select Date</h1>
+    <form action="/select_date" method="POST">
+        <label for="user">Select User:</label>
+        <select id="user" name="user">
+            {% for user in users %}
+            <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" name="date"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

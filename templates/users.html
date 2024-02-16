@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net Calorie Tracker</title>
+</head>
+<body>
+    <header>
+        <h1>Users List</h1>
+    </header>
+    <main>
+        <p>You can find the list of all the users from here.</p>
+        <p>You can either edit or view their information</p>
+        <table>
+            <thead>
+                <tr>
+                    <th> UID </th>
+                    <th> </th>
+                    <th> Name </th>
+                    <th> </th>
+                    <th> Age </th>
+                    <th> </th>
+                    <th> Gender </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in user_list|sort(attribute='UID') %}
+                <tr>
+                    <td>{{ user['UID']}}</td><td> </td><td>{{ user['name']}}</td><td> </td><td>{{ user['age']}}</td><td> </td><td>{{ user['sex']}} </td><td> </td><td> </td>
+                    <td><a href="{{ url_for('edit_user', _id=user['_id']) }}">Edit</a></td>
+                    <td><a href="{{ url_for('view_user', _id=user['_id']) }}">View</a></td>
+                    <td><a href="{{ url_for('delete_user', _id=user['_id']) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+<button onclick="window.location.href = '/';">Back to Home</button>
+    </main>
+    <footer>
+        <p> Created By Ritwick Bhattacharya. </p>
+    </footer>
+</body>
+</html>

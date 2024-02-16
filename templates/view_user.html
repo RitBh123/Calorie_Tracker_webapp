@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View User</title>
+    <script src="../static/script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>User Information</h1>
+    </header>
+    <main>
+    <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <h2>User Details</h2>
+        <p><strong>UID:</strong> {{ res[0]['UID'] }}</p>
+        <p><strong>Name:</strong> {{ res[0]['name'] }}</p>
+        <p><strong>Age:</strong> {{ res[0]['age'] }}</p>
+        <p><strong>Weight:</strong> {{ res[0]['weight'] }} kg</p>
+        <p><strong>Height:</strong> {{ res[0]['height'] }} cm</p>
+        <p><strong>Gender:</strong> {{ res[0]['sex'] }}</p>
+
+        {% if res %}
+            <h2>Food Intake</h2>
+            {% if res[0]['food'] %}
+                {% for food in fl %}
+                <ul>
+                    <li>{{ food['food'] }}: {{ food['calories'] }} calories</li>
+                </ul>
+                {% endfor %}
+                <p><strong>Total Calories for the Day:</strong> {{ sc }} calories</p>
+            {% endif %}
+        {% else %}
+            <p>No Food Intake Data for the Selected Date</p>
+        {% endif %}
+
+        <h2>Calculations</h2>
+        <p><strong>BMR:</strong> {{bmr}} calories/day</p>
+        <p><strong>Total Calories In:</strong> {{ sc }} calories</p>
+        <p><strong>Total Calories Out:</strong> {{ total_calories_out }} calories</p>
+        <p><strong>Net Calories:</strong> {{ NCD }} calories</p>
+
+        <h2>Date Selection</h2>
+        <form id="dateForm" method="POST" action="/view_user/{{ res[0]['_id'] }}">
+            <label for="date_input">Select a date (up to 30 days before today):</label><br>
+            <input type="date" id="date_input" name="date_input" min="{{ thirty_days_ago }}" max="{{ today }}" required><br><br>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+        <button onclick="window.location.href = '/';">Back to Home</button>
+    </main>
+    <footer>
+        <p> Created By Ritwick Bhattacharya. </p>
+    </footer>
+</body>
+</html>
