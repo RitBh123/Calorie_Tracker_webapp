@@ -1,0 +1,31 @@
+<script src="../static/script.js"></script>
+<form id="calorieForm" method="POST" action="/submit_activities">
+ <h2>Activity</h2>
+        <label for="activity_select">Select Activity:</label>
+        <select id="activity_select" name="activity_select" required>
+            <option value="{{res[0]['activity_select']}}" selected>{{res[0]['activity_select']}}</option>
+                {% for activity in activities %}
+                <option value="{{ activity }}">{{ activity }}</option>
+                {% endfor %}
+        </select><br>
+        <label for="specific_motion_select">Select Specific Motion:</label>
+        <select id="specific_motion_select" name="specific_motion_select" disabled required>
+            <option value="{{res[0]['specific_motion_select']}}">{{res[0]['specific_motion_select']}}</option>
+        </select><br>
+        <label for="duration">Duration (mins):</label>
+        <input type="number" id="duration" name="duration" value="{{res[0]['duration']}}"><br>
+        <input type="hidden" id="bmr" name="bmr"><br>
+
+        <!-- Date Selection Section -->
+        <h2>Date Selection</h2>
+        <label for="date_input">Select a date (up to 30 days before today):</label><br>
+        <input type="date" id="date_input" name="date_input" value="{{res[0]['date_input']}}" required><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+        &nbsp &nbsp &nbsp
+        <button onclick="window.location.href = '/';">Back to Home</button>
+</form>
+    <footer>
+        <p>&copy; Created By Ritwick Bhattacharya. </p>
+    </footer>

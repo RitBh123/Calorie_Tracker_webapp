@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View User</title>
+    <script src="../static/script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Food Information</h1>
+    </header>
+    <main>
+    <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul>
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% if res %}
+            <h2>Food Intake</h2>
+            {% if fd[0]['food'] %}
+                {% for food in fd %}
+                <ul>
+                    <tbody>
+                    <td><li>{{ food['food'] }}: {{ food['_id']} calories</li></td>
+                    <td><a href="{{ url_for('edit_food', _id=food['_id']) }}">Edit</a></td>
+                    <td><a href="{{ url_for('delete_user', _id=food['_id']) }}">Delete</a></td>
+                </ul>
+                {% endfor %}
+                <p><strong>Total Calories for the Day:</strong> {{ sc }} calories</p>
+            {% endif %}
+        {% else %}
+            <p>No Food Intake Data for the Selected Date</p>
+        {% endif %}
+
+        <h2>Calculations</h2>
+        <p><strong>Total Calories In:</strong> {{ sc }} calories</p>
+        <p><strong>Total Calories Out:</strong> {{ total_calories_out }} calories</p>
+        <p><strong>Net Calories:</strong> {{ NCD }} calories</p>
+
+        <br>
+        <button onclick="window.location.href = '/';">Back to Home</button>
+    </main>
+</body>
+</html>
